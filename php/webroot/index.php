@@ -236,15 +236,12 @@ class configtool extends \PLUSPEOPLE\SlowTemplate\Template {
 
 	protected function credentialsOk() {
 		$config = \PLUSPEOPLE\PesaPi\Configuration::instantiate();
-		$dbId = @mysql_pconnect($config->getConfig("DatabaseHostRead"), $config->getConfig("DatabaseUserRead"), $config->getConfig("DatabasePasswordRead"), true);
+		$dbId = mysqli_connect("127.0.0.1", "root", "root", "mpesa");
 		
-		if ($dbId <= 0) {
+		if (!$dbId) {
 			return false;
 		}
 
-		if (!mysql_select_db($config->getConfig("DatabaseDatabaseRead"), $dbId)) {
-			return false;
-		}
 		
 		return true;
 	}
